@@ -1,0 +1,15 @@
+{
+  "name": "netflex/message-channel",
+  "autoload": {
+    "psr-4": {
+      "Netflex\\MessageChannel\\": "src/"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "require": {
+    "guzzlehttp/guzzle": "^7.0",
+    "illuminate/support": "^7.0"
+  }
+}
