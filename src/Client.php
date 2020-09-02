@@ -2,18 +2,20 @@
 
 namespace Netflex\MessageChannel;
 
-use GuzzleHttp\Client as Guzzle;
+use Netflex\API\Client as API;
 
 class Client
 {
   /** @var string */
   public $id;
 
-  /** @var Guzzle */
+  /** @var API */
   protected $client;
 
   /** @var IncomingMessageHandler|null */
   protected $incomingMessageHandler;
+
+  protected $defaultTopic = null;
 
   /**
    * @param string $publicKey
@@ -23,10 +25,9 @@ class Client
   public function __construct($publicKey, $privateKey, $incomingMessageHandler = null)
   {
     $this->id = md5_to_uuid(md5($publicKey));
-
     $this->incomingMessageHandler = $incomingMessageHandler;
 
-    $this->client = new Guzzle([
+    $this->client = new API([
       'base_uri' => 'https://broadcast.netflexapp.com',
       'auth' => [
         $publicKey,
@@ -40,7 +41,7 @@ class Client
   protected function register()
   {
     if ($this->incomingMessageHandler) {
-      $this->client->post('/register', ['json' => $this->incomingMessageHandler]);
+      $this->client->post('register', $this->incomingMessageHandler);
       return true;
     }
 
@@ -49,10 +50,7 @@ class Client
 
   public function broadcast($message, $topic = 'public')
   {
-    $response = json_decode(
-      $this->client->post('/broadcast/' . $topic, ['json' => (object) ['data' => $message]])
-        ->getBody()
-    );
+    $response = $this->client->post("broadcast/$topic", ['data' => $message]);
 
     if (!$response->handler || $response->handler->endpoint !== $this->incomingMessageHandler->endpoint) {
       $this->register();
