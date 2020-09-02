@@ -11,5 +11,15 @@
   "require": {
     "guzzlehttp/guzzle": "^7.0",
     "illuminate/support": "^7.0"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Netflex\\MessageChannel\\Providers\\MessageChannelServiceProvider"
+      ],
+      "aliases": {
+        "MessageChannel": "Netflex\\MessageChannel\\Facades\\MessageChannel"
+      }
+    }
   }
 }

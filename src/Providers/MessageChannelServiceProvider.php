@@ -9,6 +9,13 @@ use Illuminate\Support\ServiceProvider;
 
 class MessageChannelServiceProvider extends ServiceProvider
 {
+  public function boot()
+  {
+    $this->publishes([
+      __DIR__ . '/../config/media.php' => config_path('message-channel.php')
+    ], 'config');
+  }
+
   public function register()
   {
     $this->app->singleton('netflex-message-channel', function () {
