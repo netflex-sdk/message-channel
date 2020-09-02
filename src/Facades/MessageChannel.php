@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static mixed broadcast(mixed $message, string $topic = 'public')
+ * @method static string key()
  *
  * @see \Netflex\MessageChannel\Client
  */

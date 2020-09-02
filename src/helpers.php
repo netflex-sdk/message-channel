@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Config;
+use Netflex\MessageChannel\Facades\MessageChannel;
 
 if (!function_exists('md5_to_uuid')) {
   /**
@@ -24,6 +24,6 @@ if (!function_exists('message_channel_key')) {
    */
   function message_channel_key()
   {
-    return md5_to_uuid(Config::get('api.publicKey'));
+    return MessageChannel::key();
   }
 }

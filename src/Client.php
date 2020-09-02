@@ -7,7 +7,7 @@ use Netflex\API\Client as API;
 class Client
 {
   /** @var string */
-  public $id;
+  public $channel;
 
   /** @var API */
   protected $client;
@@ -24,7 +24,7 @@ class Client
    */
   public function __construct($publicKey, $privateKey, $incomingMessageHandler = null)
   {
-    $this->id = md5_to_uuid(md5($publicKey));
+    $this->channel = md5_to_uuid(md5($publicKey));
     $this->incomingMessageHandler = $incomingMessageHandler;
 
     $this->client = new API([
@@ -36,6 +36,15 @@ class Client
     ]);
 
     $this->register();
+  }
+
+  /**
+   * Retrieves the channel key
+   * @return string
+   */
+  public function key()
+  {
+    return $this->channel;
   }
 
   protected function register()
