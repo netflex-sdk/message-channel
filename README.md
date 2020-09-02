@@ -2,6 +2,10 @@
 
 This library lets you send real time messages to connected clients over WebSocket using the Netflex MessageChannel API.
 
+<a href="https://packagist.org/packages/netflex/message-channel"><img src="https://img.shields.io/packagist/v/netflex/message-channel?label=stable" alt="Stable version"></a>
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/netflex-sdk/message-channel.svg" alt="License: MIT"></a>
+<a href="https://packagist.org/packages/netflex/message-channel/stats"><img src="https://img.shields.io/packagist/dm/netflex/message-channel" alt="Downloads"></a>
+
 ## Installation
 
 Just add this package as a dependency to yout Netflex SDKv2 based project, and it should be ready to use, no additional setup is required.
