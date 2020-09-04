@@ -3,7 +3,7 @@
 namespace Netflex\MessageChannel\Providers;
 
 use Netflex\MessageChannel\Handler;
-use Netflex\MessageChannel\Client;
+use Netflex\MessageChannel\Client as MessageChannel;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -12,13 +12,13 @@ class MessageChannelServiceProvider extends ServiceProvider
   public function boot()
   {
     $this->publishes([
-      __DIR__ . '/../config/media.php' => config_path('message-channel.php')
+      __DIR__ . '/../config/media.php' => $this->app->configPath('message-channel.php')
     ], 'config');
   }
 
   public function register()
   {
-    $this->app->singleton('netflex-message-channel', function () {
+    $this->app->singleton(MessageChannel::class, function () {
       $publicKey = $this->app['config']['api.publicKey'] ?? null;
       $privateKey = $this->app['config']['api.privateKey'] ?? null;
       $handler = null;
@@ -28,7 +28,7 @@ class MessageChannelServiceProvider extends ServiceProvider
         $handler = new Handler($endpoint, $method);
       }
 
-      return new Client($publicKey, $privateKey, $handler);
+      return new MessageChannel($publicKey, $privateKey, $handler);
     });
   }
 }

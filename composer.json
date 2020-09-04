@@ -10,12 +10,14 @@
   },
   "require": {
     "illuminate/support": "^7.0",
-    "netflex/api": "^2.0"
+    "netflex/api": "^2.0",
+    "illuminate/broadcasting": "^7.0"
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Netflex\\MessageChannel\\Providers\\MessageChannelServiceProvider"
+        "Netflex\\MessageChannel\\Providers\\MessageChannelServiceProvider",
+        "Netflex\\MessageChannel\\Providers\\MessageChannelBroadcasterServiceProvider"
       ],
       "aliases": {
         "MessageChannel": "Netflex\\MessageChannel\\Facades\\MessageChannel"

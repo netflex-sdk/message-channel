@@ -54,3 +54,24 @@ use MessageChannel;
 // Only clients listening for the 'news' topic will receive this message
 MessageChannel::broadcast(['status' => 'Hello World'], 'news');
 ```
+
+## Using with Laravels broadcast system
+
+This package also provides a driver that enables it to work with Laravels broadcast system.
+
+Add the following to your applications `config/broadcasting.php`
+
+```php
+<?php
+
+return [
+  'default' => 'message-channel',
+
+  'connections' => [
+
+    'message-channel' => [
+      'driver' => 'netflex'
+    ]
+  ]
+];
+```

@@ -3,6 +3,7 @@
 namespace Netflex\MessageChannel;
 
 use Netflex\API\Client as API;
+use Illuminate\Broadcasting\Channel;
 
 class Client
 {
@@ -14,8 +15,6 @@ class Client
 
   /** @var IncomingMessageHandler|null */
   protected $incomingMessageHandler;
-
-  protected $defaultTopic = null;
 
   /**
    * @param string $publicKey
@@ -40,6 +39,7 @@ class Client
 
   /**
    * Retrieves the channel key
+   * 
    * @return string
    */
   public function key()
@@ -47,8 +47,15 @@ class Client
     return $this->channel;
   }
 
-  protected function register()
+  /**
+   * Registers a Handler
+   * 
+   * @param Handler $handler = null
+   */
+  public function register(Handler $handler = null)
   {
+    $this->incomingMessageHandler = $handler ? $handler : $this->incomingMessageHandler;
+
     if ($this->incomingMessageHandler) {
       $this->client->post('register', $this->incomingMessageHandler);
       return true;
@@ -57,8 +64,16 @@ class Client
     return false;
   }
 
+  /**
+   * Broadcasts the message to the given topic
+   * 
+   * @param mixed $message
+   * @param Channel|string $topic
+   * @return mixed
+   */
   public function broadcast($message, $topic = 'public')
   {
+    $topic = $topic instanceof Channel ? $topic->name : $topic;
     $response = $this->client->post("broadcast/$topic", ['data' => $message]);
 
     if (!$response->handler || $response->handler->endpoint !== $this->incomingMessageHandler->endpoint) {
