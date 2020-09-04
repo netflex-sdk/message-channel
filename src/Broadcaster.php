@@ -1,14 +1,14 @@
 <?php
 
-namespace Netflex\MessageChannel\Providers;
+namespace Netflex\MessageChannel;
 
-use Illuminate\Broadcasting\Broadcasters\Broadcaster;
+use Illuminate\Broadcasting\Broadcasters\Broadcaster as BaseBroadcaster;
 use Illuminate\Contracts\Broadcasting\Broadcaster as BroadcasterContract;
 
 use Netflex\MessageChannel\Facades\MessageChannel;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 
-class MessageChannelBroadcaster extends Broadcaster implements BroadcasterContract
+class Broadcaster extends BaseBroadcaster implements BroadcasterContract
 {
   /**
    * Authenticate the incoming request for a given channel.

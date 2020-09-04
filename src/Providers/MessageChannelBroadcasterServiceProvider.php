@@ -5,6 +5,8 @@ namespace Netflex\MessageChannel\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;
 
+use Netflex\MessageChannel\Broadcaster as MessageChannelBroadcaster;
+
 class MessageChannelBroadcasterServiceProvider extends ServiceProvider
 {
   /**
