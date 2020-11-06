@@ -5,8 +5,12 @@ namespace Netflex\MessageChannel;
 use Netflex\API\Client as API;
 use Illuminate\Broadcasting\Channel;
 
+use Illuminate\Support\Traits\Macroable;
+
 class Client
 {
+  use Macroable;
+
   /** @var string */
   public $channel;
 
@@ -21,13 +25,13 @@ class Client
    * @param string $privateKey
    * @param IncomingMessageHandler|null $incomingMessageHandler
    */
-  public function __construct($publicKey, $privateKey, $incomingMessageHandler = null)
+  public function __construct($publicKey, $privateKey, $incomingMessageHandler = null, $baseURI = 'https://broadcast.netflexapp.com')
   {
     $this->channel = md5_to_uuid(md5($publicKey));
     $this->incomingMessageHandler = $incomingMessageHandler;
 
     $this->client = new API([
-      'base_uri' => 'https://broadcast.netflexapp.com',
+      'base_uri' => $baseURI,
       'auth' => [
         $publicKey,
         $privateKey
