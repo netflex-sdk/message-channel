@@ -5,13 +5,23 @@ use Netflex\Pages\Components\Picture;
 return [
 
   /*
-    |--------------------------------------------------------------------------
-    | Handlers
-    |--------------------------------------------------------------------------
-    |
-    | Your application's incoming message handler
-    |
-    */
+   |--------------------------------------------------------------------------
+   | Base URI
+   |--------------------------------------------------------------------------
+   |
+   | The backend endpoint that handles the websocket backend
+   |
+   */
+  'baseURI' => 'https://broadcast.netflexapp.com',
+
+  /*
+   |--------------------------------------------------------------------------
+   | Handlers
+   |--------------------------------------------------------------------------
+   |
+   | Your application's incoming message handler
+   |
+   */
   'handler' => [
     'endpoint' => env('APP_URL') . '/incoming-message-handler',
     'method' => 'post',
