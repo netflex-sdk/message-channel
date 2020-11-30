@@ -6,6 +6,7 @@ use Netflex\API\Client as API;
 use Illuminate\Broadcasting\Channel;
 
 use Illuminate\Support\Traits\Macroable;
+use Netflex\MessageChannel\Facades\MessageChannel;
 
 class Client
 {
@@ -25,10 +26,12 @@ class Client
    * @param string $privateKey
    * @param IncomingMessageHandler|null $incomingMessageHandler
    */
-  public function __construct($publicKey, $privateKey, $incomingMessageHandler = null, $baseURI = 'https://broadcast.netflexapp.com')
+  public function __construct($publicKey, $privateKey, $incomingMessageHandler = null, $baseURI = 'broadcast.netflexapp.com')
   {
     $this->channel = md5_to_uuid(md5($publicKey));
     $this->incomingMessageHandler = $incomingMessageHandler;
+
+    $baseURI = 'https://' . MessageChannel::key() . '.' . $baseURI;
 
     $this->client = new API([
       'base_uri' => $baseURI,
