@@ -31,7 +31,17 @@ class Client
     $this->channel = md5_to_uuid(md5($publicKey));
     $this->incomingMessageHandler = $incomingMessageHandler;
 
-    $baseURI = 'https://' . MessageChannel::key() . '.' . $baseURI;
+    $channelKey = $this->key();
+
+    $matches = [];
+    $protocol = 'https://';
+
+    if (preg_match('/(https?:\/\/)(.+)/', $baseURI, $matches)) {
+      $protocol = $matches[1];
+      $baseURI = $matches[2];
+    }
+
+    $baseURI = $protocol . implode('.', [$channelKey, $baseURI]);
 
     $this->client = new API([
       'base_uri' => $baseURI,
