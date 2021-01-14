@@ -26,7 +26,7 @@ class Client
    * @param string $privateKey
    * @param IncomingMessageHandler|null $incomingMessageHandler
    */
-  public function __construct($publicKey, $privateKey, $incomingMessageHandler = null, $baseURI = 'broadcast.netflexapp.com')
+  public function __construct($publicKey, $privateKey, $incomingMessageHandler = null, $baseURI = 'broadcast.netflexapp.com', $prefixWithChannel = true)
   {
     $this->channel = md5_to_uuid(md5($publicKey));
     $this->incomingMessageHandler = $incomingMessageHandler;
@@ -36,12 +36,14 @@ class Client
     $matches = [];
     $protocol = 'https://';
 
-    if (preg_match('/(https?:\/\/)(.+)/', $baseURI, $matches)) {
-      $protocol = $matches[1];
-      $baseURI = $matches[2];
-    }
+    if ($prefixWithChannel) {
+      if (preg_match('/(https?:\/\/)(.+)/', $baseURI, $matches)) {
+        $protocol = $matches[1];
+        $baseURI = $matches[2];
+      }
 
-    $baseURI = $protocol . implode('.', [$channelKey, $baseURI]);
+      $baseURI = $protocol . implode('.', [$channelKey, $baseURI]);
+    }
 
     $this->client = new API([
       'base_uri' => $baseURI,
