@@ -29,8 +29,9 @@ class MessageChannelServiceProvider extends ServiceProvider
       }
 
       $baseURI = $this->app['config']['message-channel.baseURI'] ?? 'https://broadcast.netflexapp.com';
+      $prefixWithChannel = $this->app['config']['message-channel.prefixChannel'] ?? true;
 
-      return new MessageChannel($publicKey, $privateKey, $handler, $baseURI);
+      return new MessageChannel($publicKey, $privateKey, $handler, $baseURI, $prefixWithChannel);
     });
   }
 }

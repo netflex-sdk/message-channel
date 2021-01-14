@@ -13,6 +13,7 @@ return [
    |
    */
   'baseURI' => 'https://broadcast.netflexapp.com',
+  'prefixChannel' => true,
 
   /*
    |--------------------------------------------------------------------------
