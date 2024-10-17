@@ -18,7 +18,6 @@ class Handler implements JsonSerializable
     $this->method = $method;
   }
 
-  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [
